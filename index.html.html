@@ -1,0 +1,624 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:16px 8px;direction:rtl}
+.page-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.pnav{padding:6px 12px;font-size:12px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:20px;background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.pnav:hover{background:var(--color-background-secondary)}
+.pnav.active{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.sec{display:none}.sec.active{display:block}
+.page-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:18px 20px;margin-bottom:16px}
+.page-badge{display:inline-flex;align-items:center;gap:6px;background:#EEEDFE;color:#3C3489;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:500;margin-bottom:14px}
+.section-title{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;padding-bottom:8px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.content-text{font-size:13px;color:var(--color-text-primary);line-height:1.85;margin-bottom:12px}
+.simple-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:10px;border-right:3px solid #7F77DD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+.simple-label{font-size:11px;font-weight:500;color:#534AB7;margin-bottom:4px}
+.simple-text{font-size:13px;color:var(--color-text-primary);line-height:1.7}
+.teal-box{border-right-color:#1D9E75}.teal-box .simple-label{color:#0F6E56}
+.coral-box{border-right-color:#D85A30}.coral-box .simple-label{color:#993C1D}
+.amber-box{border-right-color:#BA7517}.amber-box .simple-label{color:#854F0B}
+.red-box{border-right-color:#E24B4A}.red-box .simple-label{color:#A32D2D}
+.pink-box{border-right-color:#D4537E}.pink-box .simple-label{color:#993556}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.mini{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+.mini-t{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px}
+.mini-v{font-size:13px;color:var(--color-text-primary);line-height:1.6}
+.num-item{display:flex;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--color-border-tertiary);align-items:flex-start}
+.num-item:last-child{border-bottom:none}
+.num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px}
+.num-purple{background:#EEEDFE;color:#3C3489}
+.num-teal{background:#E1F5EE;color:#085041}
+.num-coral{background:#FAECE7;color:#712B13}
+.num-blue{background:#E6F1FB;color:#0C447C}
+.num-amber{background:#FAEEDA;color:#633806}
+.num-red{background:#FCEBEB;color:#A32D2D}
+.num-text{font-size:13px;color:var(--color-text-primary);line-height:1.6;flex:1}
+.num-sub{font-size:12px;color:var(--color-text-secondary);margin-top:3px}
+.hadith-box{background:#E1F5EE;border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:10px;border:0.5px solid #9FE1CB}
+.hadith-title{font-size:12px;font-weight:500;color:#085041;margin-bottom:5px}
+.hadith-text{font-size:13px;color:#0F6E56;line-height:1.7;font-family:var(--font-serif)}
+.warn-box{background:#FCEBEB;border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:10px;border:0.5px solid #F7C1C1}
+.warn-title{font-size:12px;font-weight:500;color:#791F1F;margin-bottom:4px}
+.warn-text{font-size:13px;color:#A32D2D;line-height:1.6}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:500;margin:2px}
+.tag-p{background:#EEEDFE;color:#3C3489}
+.tag-t{background:#E1F5EE;color:#085041}
+.tag-c{background:#FAECE7;color:#712B13}
+.tag-b{background:#E6F1FB;color:#0C447C}
+.tag-a{background:#FAEEDA;color:#633806}
+.tag-r{background:#FCEBEB;color:#A32D2D}
+.tag-g{background:#EAF3DE;color:#27500A}
+.compare-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px}
+.compare-tbl th{padding:8px 10px;font-weight:500;font-size:11px;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);text-align:right}
+.compare-tbl td{padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:right;line-height:1.5;color:var(--color-text-primary);vertical-align:top}
+.compare-tbl tr:last-child td{border-bottom:none}
+.summary-item{display:flex;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary);align-items:flex-start}
+.summary-item:last-child{border-bottom:none}
+.s-num{width:22px;height:22px;border-radius:50%;background:#EEEDFE;color:#3C3489;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:2px}
+.s-text{font-size:13px;color:var(--color-text-primary);line-height:1.7;flex:1}
+@media(max-width:480px){.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<div class="page-nav">
+  <button class="pnav active" onclick="show('p3')">ص 3</button>
+  <button class="pnav" onclick="show('p4')">ص 4</button>
+  <button class="pnav" onclick="show('p5')">ص 5</button>
+  <button class="pnav" onclick="show('p6')">ص 6</button>
+  <button class="pnav" onclick="show('p7')">ص 7</button>
+  <button class="pnav" onclick="show('p8')">ص 8</button>
+  <button class="pnav" onclick="show('p9p10')">ص 9-10</button>
+  <button class="pnav" onclick="show('p11')">ص 11</button>
+  <button class="pnav" onclick="show('p12')">ص 12</button>
+  <button class="pnav" onclick="show('p13p14')">ص 13-14</button>
+  <button class="pnav" onclick="show('p15')">ص 15</button>
+  <button class="pnav" onclick="show('summary')">الخلاصة</button>
+</div>
+
+<!-- ====== PAGE 3 ====== -->
+<div id="p3" class="sec active">
+  <div class="page-card">
+    <div class="page-badge">صفحة 3 — مقدمة الفصل</div>
+    <div class="section-title">اللعب — النشاط الطبيعي الأول للطفل</div>
+    <div class="content-text">اللعب نشاط طبيعي يميل إليه الأفراد ويمارسونه بشكل تلقائي أو منظم. وهو غريزة إنسانية نشأت مع الإنسان منذ لحظة الولادة وتدوم طوال العمر. يستهلك طاقة الجسم الحركية والذهنية، ويمتاز بالسرعة والخفة، ولا يُتعب الطفل منه أبداً بل يجد الطفل فيه راحته واستمراره.</div>
+    <div class="simple-box">
+      <div class="simple-label">الفكرة الجوهرية</div>
+      <div class="simple-text">اللعب يعمل على إشباع حاجات الأطفال وقدراتهم، ويُسهم في تربية الطفل تربية سلوكية سليمة بعيدة عن المشاكل والاضطرابات.</div>
+    </div>
+    <div class="simple-box teal-box">
+      <div class="simple-label">لماذا اللعب مهم لكل الأطفال؟</div>
+      <div class="simple-text">اللعب يُعد قيمة ذات صلة بتنمية جميع الأطفال، إذ يُنمي الامة على التواصل والتفكير النامي والتعبير العاطفي والمهارات الحركية وتعلم الوظائف اليومية وتحسين التظ. وهو نشاط يُسهم في تنمية جميع الأطفال جسمياً ومعرفياً واجتماعياً.</div>
+    </div>
+    <div class="simple-box coral-box">
+      <div class="simple-label">اللعب وذوو الاحتياجات الخاصة — أهمية مضاعفة</div>
+      <div class="simple-text">إذا كان اللعب مهماً جداً للأطفال العاديين، فهو أكثر أهمية لذوي الاحتياجات الخاصة. يواجه هؤلاء الأطفال تحديات أثناء اللعب كل حسب إعاقته، ويحتاجون وقتاً أطول لتعلم قواعد اللعبة وحل المشكلات التي تواجههم، وقد لا يستطيع جسدهم فعل كل ما يسمعه أو يراه.</div>
+    </div>
+    <div class="simple-box amber-box">
+      <div class="simple-label">دور المربي مع ذوي الفئات الخاصة</div>
+      <div class="simple-text">على المربين التركيز على تقدير قيمة اللعب، وإتاحة الفرصة للطفل لتجربة اللعب المناسب له دون وضع عراقيل بسبب عدم وجود المكان الخاص، مع الانتباه عند التعامل مع الطفل: جعله يفعل ما يكونه وليس ما نريده نحن، مع إعطاء الطفل كامل الحرية للحياة وفهم اللعب الذي يرغب به وكيفية القيام به، مع تقديم بعض التوجيهات الشخصية والنصائح.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 4 ====== -->
+<div id="p4" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 4 — دور المعلم واللعب الحر</div>
+    <div class="section-title">كيف يتعامل المعلم مع لعب ذوي الفئات الخاصة؟</div>
+    <div class="content-text">الأطفال يميلون بفطرتهم إلى اللعب، فهو يُسيّلهم الأساسي في اكتشاف العالم من حولهم وإشباع حاجاتهم وتلبية طاقاتهم. وقد أكدت الأبحاث التربوية على أهمية اللعب وجدواه، وأن الألعاب على اختلاف أنواعها إذا أُحسن تنظيمها تؤدي دوراً فعّالاً في نمو الطفل: العقلي والجسمي والاجتماعي والانفعالي والتعليمي.</div>
+    <div class="grid2">
+      <div class="simple-box">
+        <div class="simple-label">ما يعرفه بعض الأطفال ذوي الفئات الخاصة</div>
+        <div class="simple-text">بعضهم يعرف كيف يلعب، وقد يظن آخرون أن اللعب مضيعة للوقت، وقد يشكو البعض من وجود الرغبة في اللعب لديهم كما هو عند الطفل الطبيعي.</div>
+      </div>
+      <div class="simple-box teal-box">
+        <div class="simple-label">دور المعلم — 5 خطوات أساسية</div>
+        <div class="simple-text">أن يكون على معرفة بنوع الإعاقة لكل طفل — معرفة قدراته واهتماماته ومدى تطوره — توضيح المواقف التعليمية المناسبة له — زيادة فرص التعلم أمامه بدلاً من فرض أشياء أخرى — أن يكون الجو آمناً ونشطاً وبعيداً عن التقييد.</div>
+      </div>
+    </div>
+    <div class="simple-box coral-box">
+      <div class="simple-label">تصميم الألعاب لذوي الفئات الخاصة — معايير مهمة</div>
+      <div class="simple-text">يجب أن تكون الألعاب من نوعٍ مناسب وألا يُعتمد في تصميمها على المعلمين والمعالجين والمتخصصين في حياة هؤلاء الأطفال فحسب، بل أن تُقدَّم بأساليب متعددة لاستخدام التوالي، وأن تقوم على جذب اهتمام الأطفال، والتلويح على اللعب لفترات أطول، وتثبيت اهتمامهم عن أنفسهم وعن تجاهل اللعب.</div>
+    </div>
+    <div class="simple-box amber-box">
+      <div class="simple-label">اللعب وذوو الفئات الخاصة — إذا كان مهماً للعاديين فهو أكثر أهمية لهم</div>
+      <div class="simple-text">إذا كان اللعب ذو أهمية كبيرة بالنسبة للأطفال العاديين، فهو أكثر جدوى بالنسبة لذوي الاحتياجات الخاصة. وأي اختلاف في طبيعة اللعب يكون في كم الوقت المتاح وتحديد الدعم المطلوب. إذ يواجه الأطفال ذوو الفئات الخاصة العديد من الصعوبات أثناء اللعب كل حسب إعاقته.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 5 ====== -->
+<div id="p5" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 5 — مفهوم اللعب</div>
+    <div class="section-title">مفهوم اللعب — التعريف اللغوي والاصطلاحي</div>
+    <div class="simple-box">
+      <div class="simple-label">التعريف اللغوي</div>
+      <div class="simple-text">اللعب لغةً هو مصدر "لَعِلَ"، وكما يوجد في قاموس المحيط بأنه "مصدر للعل يعني الانتقال صفة الجدية عن اللعب بعيد العمل"، ويعني ذلك الانصراف عن الجدية، كما يتضمن مفهوم اللعب المتعة أو التنزه باصطلاح اللذة أو التنزيه.</div>
+    </div>
+    <div class="section-title" style="margin-top:14px">تعريفات العلماء</div>
+    <div class="simple-box">
+      <div class="simple-label">فرويل</div>
+      <div class="simple-text">اللعب هو وسيلة يتفاظ بها الطفل على كل خبراته، وهو أكثر أنشطة الطفل راحةً وسعادة.</div>
+    </div>
+    <div class="simple-box teal-box">
+      <div class="simple-label">اللعب — استخدام الطاقة الحركية والذهنية (تعريف عام)</div>
+      <div class="simple-text">اللعب هو استخدام طاقة الجسم الحركية والذهنية في آنٍ واحد عبر نشاط مدمج، قد يكون موجهاً أو غير موجه. يهدف الأطفال من خلاله إعادة تحقيق المتعة والتسلية والتعلم بطريقة غير مباشرة، ويستثمرونه أيضاً في تنمية سلوكهم وشخصياتهم بأبعادها العقلية والجسمية والوجدانية.</div>
+    </div>
+    <div class="simple-box coral-box">
+      <div class="simple-label">آنا كراجت</div>
+      <div class="simple-text">اللعب هو النشاط الذي يقوم فيه الأطفال بالاستكشاف والاستمتاع بالأصوات والألوان والأشكاء والأشكاء والأحاجز ويكشف العالم الذي يحيط بهم. يُظهر الأطفال قدراتهم المتنامية على التخيل والاتصال والملاحظة والاستخدام الواسع للأدوات والخامات، وكل ذلك التعبير عن أجهزتهم والتواصل مع مشاعرهم ومع الآخرين.</div>
+    </div>
+    <div class="simple-box amber-box">
+      <div class="simple-label">كولبرج</div>
+      <div class="simple-text">يرى أن اللعب هو أجود أداة داعمة لعمليات النمو والتعلم معاً.</div>
+    </div>
+    <div class="simple-box pink-box">
+      <div class="simple-label">فيلدا برييا</div>
+      <div class="simple-text">احتياجات الأطفال للعب بأنواعه وأدواته وأساليبه هي "احتياجات تكاملية" تتوازى مع عمليات النمو لديهم في الطفل. الطفل يلعب إذ ينمو وينمو إذ يلعب.</div>
+    </div>
+    <div class="simple-box" style="background:#FAEEDA;border-right-color:#BA7517">
+      <div class="simple-label" style="color:#854F0B">ملاحظة مهمة — تعريف إضافي</div>
+      <div class="simple-text" style="color:#633806">اللعب هو النشاط الذي يؤدى إلى الحصول على الرضا الذي ينبثق من اللعب نفسه. واللعب بالنسبة للطفل هو عمل ولُعب وجنى وتسلية ولا يمكن أن نُصنّفه على غرض واحد، فالطفل يبذل فيه جهداً كبيراً ويقتبه ويتلكأ ويطاقة.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 6 ====== -->
+<div id="p6" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 6 — خصائص اللعب واللعبة</div>
+    <div class="section-title">ما اتفق عليه العلماء في تعريف اللعب</div>
+    <div class="content-text">رغم تعدد تعريفات اللعب إلا أنها اتفقت على أن اللعب يتسم بهذه الخصائص:</div>
+    <div class="num-item">
+      <div class="num num-purple">1</div>
+      <div class="num-text">فاعلية مشتركة يؤديها الطفل تلقائياً وبإرادته دون إكراه</div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">2</div>
+      <div class="num-text">نشاط حر لا قسر فيه ولا إكراه</div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">3</div>
+      <div class="num-text">مرن ومتنوع — قد يكون موجهاً أو غير موجه، أو ما هو واقعي أو غير واقعي... إلى آخره</div>
+    </div>
+    <div class="num-item">
+      <div class="num num-blue">4</div>
+      <div class="num-text">يتضمن نشاطاً لا متنوعاً جسمياً وعقلياً وانفعالياً ولغوياً واجتماعياً، لذلك يُسهم في نمو الطفل من جميع النواحي</div>
+    </div>
+    <div class="num-item">
+      <div class="num num-amber">5</div>
+      <div class="num-text">يتسم بالمتعة واللذة ودلوكاً يما يصاحبه الابتسامة والرضا والفرح</div>
+    </div>
+    <div class="num-item">
+      <div class="num num-purple">6</div>
+      <div class="num-text">مرتبط بالميل والدوافع الداخلية، لذلك لا يتعب صاحبه</div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">7</div>
+      <div class="num-text">يمتاز بالسرعة والخفة</div>
+    </div>
+    <div style="margin-top:16px" class="section-title">مفهوم اللُّعبة — وما الفرق بينها وبين اللعب؟</div>
+    <div class="simple-box teal-box">
+      <div class="simple-label">تعريف اللُّعبة</div>
+      <div class="simple-text">اللُّعبة هي الإطار أو النموذج الذي يبدأ من خلاله نشاط إرادي يؤدى في حدود زمان ومكان معين حسب قواعد وقوانين مُتفق عليها ومُلزَمة من قِبَل من يمارسها، وتتمكن مليّاً ونشاطاً مستمراً جماعياً في حدود النزال، وترتبط بالتوابل والتنافس والمنافسة.</div>
+    </div>
+    <div class="simple-box">
+      <div class="simple-label">وتميل اللُّعبة إلى الحياة أو المتاكأة للواقع لكن لا تُختلط عن واقع الحياة الحقيقية</div>
+      <div class="simple-text">يتمكن المُمارسون من الوصول إلى أشعارهم بالمتعة أو المنافسة دون إلزام الأنثى أو إيذاء الآخرين.</div>
+    </div>
+    <div style="margin-top:12px;font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px">خصائص اللُّعبة — على ضوء ما تقدم تتسم اللُّعبة بأنها:</div>
+    <table class="compare-tbl">
+      <thead><tr><th>#</th><th>الخاصية</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#3C3489;font-weight:500">1</td><td>نشاط منظم ومُتفق عليه</td></tr>
+        <tr><td style="color:#3C3489;font-weight:500">2</td><td>تسير وفق قواعد محددة ومُتفق عليها ومُلزَمة من قِبَل من يمارسها</td></tr>
+        <tr><td style="color:#3C3489;font-weight:500">3</td><td>تتمكن تعاوناً أو منافسة مع الذات ومع الآخرين</td></tr>
+        <tr><td style="color:#3C3489;font-weight:500">4</td><td>تُمكِّن من مشاعر المتعة أو المنافسة دون إلزام الأنثى بإيذاء الآخرين</td></tr>
+        <tr><td style="color:#3C3489;font-weight:500">5</td><td>تؤدى في حدود زمان ومكان معين</td></tr>
+      </tbody>
+    </table>
+    <div class="simple-box amber-box" style="margin-top:8px">
+      <div class="simple-label">الفرق الجوهري بين اللعب واللُّعبة</div>
+      <div class="simple-text">اللعب = حر مرن قد يكون بلا قواعد ⟵ اللُّعبة = اللعب المنظم الذي له قواعد محددة ومُلزَمة وزمان ومكان محدد</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 7 ====== -->
+<div id="p7" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 7 — وظائف اللعب (1-9)</div>
+    <div class="section-title">أهم وظائف اللعب — من 1 إلى 9</div>
+    <div class="num-item">
+      <div class="num num-purple">1</div>
+      <div><div class="num-text">اللعب يُسهل للفرد التعامل مع بيئته</div><div class="num-sub">يعني: بيساعد الطفل يتعامل مع الناس والبيئة اللي حواليه بشكل طبيعي</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">2</div>
+      <div><div class="num-text">اللعب يُسهل للفرد تقوية الفرد</div><div class="num-sub">بيقوي شخصية الطفل ويبنيها من الداخل</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">3</div>
+      <div><div class="num-text">اللعب يُسهل للتعلم</div><div class="num-sub">التعلم بيحصل بشكل طبيعي وممتع من خلال اللعب</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-blue">4</div>
+      <div><div class="num-text">اللعب يُسهل اكتساب أنماط السلوك المختلفة</div><div class="num-sub">الطفل بيتعلم سلوكيات متنوعة وهو بيلعب</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-amber">5</div>
+      <div><div class="num-text">اللعب يُسهل تقوية بناء التوافق الاجتماعي</div><div class="num-sub">بيعلمه ازاي يتوافق مع الآخرين ويعيش معهم</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-purple">6</div>
+      <div><div class="num-text">اللعب يُساعد على تلبية التعلم بالنسبة للأطفال</div><div class="num-sub">اللعب هو الأسلوب الأمثل للتعلم في مرحلة الطفولة</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">7</div>
+      <div><div class="num-text">اللعب يوجد الفرص للتعلم الاستكشافي</div><div class="num-sub">الطفل بيكتشف العالم من حواليه من خلال اللعب بنفسه</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">8</div>
+      <div><div class="num-text">اللعب يوجد فرص التعامل الاجتماعي — ويُخرج الطفل من الانكماح حوله وأنانيته</div><div class="num-sub">بيخرجه من العزلة ويعلمه يتفاعل مع الآخرين</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-blue">9</div>
+      <div><div class="num-text">يُظهر الدوافع والاتجاهات الداخلية</div><div class="num-sub">اللعب بيكشف ميول الطفل الداخلية وما يحبه فعلاً</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 8 ====== -->
+<div id="p8" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 8 — وظائف اللعب (10-18) + اللعب في الإسلام</div>
+    <div class="section-title">وظائف اللعب — من 10 إلى 18</div>
+    <div class="num-item">
+      <div class="num num-purple">10</div>
+      <div><div class="num-text">يُساعد على التوافق والتفكير، وهو أساس النمو العقلي وتطوره</div><div class="num-sub">بيطور التفكير ويبني العقل</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">11</div>
+      <div><div class="num-text">يُنبت مفاهيم الحياة للطفل</div><div class="num-sub">الطفل بيتعلم معنى الحياة ومفاهيمها الأساسية من خلال اللعب</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">12</div>
+      <div><div class="num-text">اللعب يُساعد في إحداث التفاعل بين الفرد وبيئته</div><div class="num-sub">يبني جسر التواصل بين الطفل والعالم من حوله</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-blue">13</div>
+      <div><div class="num-text">اللعب يُعبر عن أداة فعّالة لمواجهة مشكلات النمو الفردية</div><div class="num-sub">بيساعد الطفل يواجه مشاكل نموه بطريقة طبيعية</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-amber">14</div>
+      <div><div class="num-text">اللعب أداة لتقوية جسم الطفل وإنمائه</div><div class="num-sub">تقوية العضلات والجسم من خلال الحركة واللعب</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-red">15</div>
+      <div><div class="num-text">اللعب نشاط سلوكي دفاعي — يواجه فيه الطفل مواقف الإحباط وينفّس عن انفعالاته</div><div class="num-sub">كلمة "دفاعي" مهمة جداً في الامتحان — اللعب بيصرف الطاقة السلبية</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-purple">16</div>
+      <div><div class="num-text">اللعب يُلبي حاجة الأطفال الطبيعية ويوجب لهم فرص النمو المتكامل</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">17</div>
+      <div><div class="num-text">اللعب يُمثل أسلوب المجتمع في توفير الفرصة لمشاركة الخدمات المقدمة وما يتبعها</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">18</div>
+      <div><div class="num-text">يُظهر مهارات واتجاهات وأجهزة الأطفال</div><div class="num-sub">اللعب بيكشف مواهب وقدرات الطفل الحقيقية</div></div>
+    </div>
+    <div style="margin-top:16px" class="section-title">حق الطفل في اللعب في الإسلام</div>
+    <div class="content-text">حرص الإسلام على حق الطفل في اللعب، وتوجد أحاديث كثيرة تُفيدنا بأن النبي ﷺ كان يُطيل الأطفال ويلاعبهم ويوللهم حقهم في اللعب.</div>
+    <div class="hadith-box">
+      <div class="hadith-title">الدليل الأول — إطالة الصلاة</div>
+      <div class="hadith-text">عن الصحابة أنه أمر على خبر رسول الله ﷺ في الترميم في المسجد في جاءه الحسنان وهو يصلي فأمسك أحد مدحه، وما يتبعه القوم الذي يصلي حتى أخذه، وصل النبي ﷺ حتى أخذه... "أحب من أحب الحسن حسباً، أحب الحسنان منا..." (مسلم).</div>
+    </div>
+    <div class="hadith-box">
+      <div class="hadith-title">الدليل الثاني — تعريف الأطفال</div>
+      <div class="hadith-text">عن أبي أبو الأصاهي — رضي الله عنه — قال: دخلت على رسول الله ﷺ والحسنان يلعبان فيما بنا أيام، فقال: "ما هذان اليمبان؟" فقالوا: كنا نلعب فيما بنا في الجاهلية. فقال الرسول ﷺ: "إن الله أبدلكما بكم اللفيرة من كما، يبدل الضحى يوم اللعب" (أبو داود والنساء).</div>
+    </div>
+    <div class="hadith-box">
+      <div class="hadith-title">الدليل الثالث — مداعبة الأطفال</div>
+      <div class="hadith-text">عن البراء عازو — رضي الله عنه — قال: "كان رسول الله ﷺ يصلى، فجاء الحسن والحسين فيما أحدكما — رضي الله عنهما — فرقبَ على ظهره، فكان إذا رجع فأمسك، أو أمسككم، وقال: 'اعتركم كيم، يأمكاه اخير من كما'" (الطبراني).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 9-10 ====== -->
+<div id="p9p10" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 9-10 — اللعب في الإسلام (تكملة) + مخاطر الحرمان</div>
+    <div class="section-title">مزيد من الأدلة على اللعب في الإسلام</div>
+    <div class="hadith-box">
+      <div class="hadith-title">الدليل الرابع — النبي يلعب مع الأطفال</div>
+      <div class="hadith-text">روى أنس بن مالك — رضي الله عنه — قال: "كان النبي ﷺ يصلى، وجاء الحسن والحسين — رضي الله عنهما — فركبا على ظهره التساء..." يقول: "أنعم الاصل، وأنعم ابن التربة..." قال: "! فأستياله، يابس، فانظر جأ..." أمر النبي ﷺ بهم حتى انتهى، ينظر اليه تساء، فإذا قبضه قنواته فقالت: "يا أنيس أنا أقبرته؟ وقلت: اعم، أنا أنبيه يتركم، فلا..." (مسلم).</div>
+    </div>
+    <div class="hadith-box">
+      <div class="hadith-title">الدليل الخامس — مرابطة في الألعاب</div>
+      <div class="hadith-text">ومن روائع مُعامَلة الرسول ﷺ للأطفال، أنه مر بعبيد كانوا يلعبان من الصبيان (أي يلعبون مبارة الربيع) فقال: "التلعم بوأكم في ربيعه. ما معناه).</div>
+    </div>
+    <div class="hadith-box">
+      <div class="hadith-title">الفكرة الجوهرية من الأدلة</div>
+      <div class="hadith-text">رغم ضرورة اللعب للأطفال، فإنه لا يصح أن نكونهم من الألعاب المتبعة، فقد مر النبي ﷺ على سيرين على غلمان يتُعادان بالمريد يوما فقال: "يا غلمان لا تِاأ مبيلاً فإن الحكمة من الميسر".</div>
+    </div>
+    <div style="margin-top:16px" class="section-title">مخاطر حرمان الطفل من اللعب</div>
+    <div class="content-text">حرمان الطفل من اللعب ليس مجرد حرمان من المتعة — بل له عواقب وخيمة على كل جوانب نموه:</div>
+    <div class="grid2">
+      <div class="warn-box">
+        <div class="warn-title">تأخر النمو الجسمي</div>
+        <div class="warn-text">مثل بطء النمو أو ضعف العضلات والحركة</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-title">السمنة</div>
+        <div class="warn-text">قلة النشاط البدني تؤدي للسمنة وضعف اللياقة البدنية</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-title">ضعف النمو العقلي</div>
+        <div class="warn-text">مثل انخفاض الذكاء أو ضعف التفكير والإبداع</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-title">مشاكل وجدانية واجتماعية</div>
+        <div class="warn-text">مثل العزلة الاجتماعية أو الانطواء والانكماح</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-title">مشكلات في التعليم</div>
+        <div class="warn-text">الأطفال يتعلمون من خلال اللعب — فإذا حُرموا منه، قد يواجهون صعوبة في التعلم كالنشاط المميز على مرحلة الطفولة والمدخل الأساسي إلى مفاهيم الطفل</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-title">مشكلات سلوكية</div>
+        <div class="warn-text">الأطفال يتعلمون كيفية التفاعل مع الآخرين من خلال اللعب — إذا حُرموا منه قد يواجهون صعوبة في التفاعل مع الآخرين بشكل صحي</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-title">الإصابة بالاضطرابات النفسية</div>
+        <div class="warn-text">يرتبط حرمان الطفل من اللعب بزيادة احتمالية الإصابة بالاضطرابات النفسية والسلوكية</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-title">الحرمان البيئي للطفل</div>
+        <div class="warn-text">الضرر الذي ينتج عنه حرمان الطفل من الخبرات الحياتية المناسبة لكل مرحلة عمرية — هذه الخبرات لا تعوّض بعد فواتها</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 11 ====== -->
+<div id="p11" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 11 — أسباب الحرمان + اللعب السلبي</div>
+    <div class="section-title">أسباب تدفع الآباء لحرمان الطفل من اللعب وممارسة حقه في الترفيه</div>
+    <div class="simple-box red-box">
+      <div class="simple-label">السبب الأول — الخوف من الإصابة أو الخطر</div>
+      <div class="simple-text">يخشى بعض الآباء أن يُصاب أطفالهم أو يتعرضوا للخطر أثناء اللعب، مما قد يدفعهم إلى منعهم من اللعب.</div>
+    </div>
+    <div class="simple-box red-box">
+      <div class="simple-label">السبب الثاني — التربية المفرطة في الحماية "الحب المفرط"</div>
+      <div class="simple-text">قد يكون الآباء مفرطين في حرصهم على أطفالهم، مما قد يؤدي إلى منعهم من اللعب لكي يتمتعوا بأي خطر محتمل.</div>
+    </div>
+    <div class="simple-box red-box">
+      <div class="simple-label">السبب الثالث — التركيز على الدراسة</div>
+      <div class="simple-text">قد يُركز الآباء على دراسة أطفالهم، ويبذلون في سبيل ذلك ما كان في اللعب.</div>
+    </div>
+    <div class="simple-box amber-box" style="margin-top:4px">
+      <div class="simple-label">تنبيه مهم من الكتاب</div>
+      <div class="simple-text">هذه الأسباب وإن بدت منطقية ومقبولة بالنسبة للمربين والمربيات إلا أنها ليست كذلك للطفل الذي من حقه أن يلعب ويتعلم باللعب، فأن يتوازن ممارسته، والأفضل هو الوسط.</div>
+    </div>
+    <div style="margin-top:16px" class="section-title">متى يكون لعب الأطفال سلبياً؟</div>
+    <div class="content-text">اللعب قد يشكل ضرراً على الطفل في بعض الحالات، ويؤثر في عمر الطفل وسلوكه وطباعه وعاداته. وتتشكل سلبيات اللعب عند الأطفال عند:</div>
+    <div class="num-item">
+      <div class="num num-red">1</div>
+      <div><div class="num-text">حين يؤدي لعب الطفل بألعاب غير مناسبة لعمره إلى شعوره بالإحباط والفشل</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-red">2</div>
+      <div><div class="num-text">حين ينتقل الطفل الصغير — في حالة الاحتكاك الكثير من الألعاب — من لعبة إلى أخرى، دون أخذ الوقت الكافي لاستكشاف اللعبة ومحاظتها، فلا يتعلم الثبات ولا يبذل مجهوداً في التفكير</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 12 ====== -->
+<div id="p12" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 12 — اللعب السلبي (تكملة) + اللعب وذوو الفئات الخاصة</div>
+    <div class="section-title">تكملة سلبيات اللعب</div>
+    <div class="num-item">
+      <div class="num num-red">3</div>
+      <div><div class="num-text">الإفراط في اللعب وعدم تحديد مدة زمنية لوقت اللعب — خاصة مع الأطفال في عمر أكثر من 4 سنوات، فلا ينشأ لديهم الإحساس بالنظام وقيمة الوقت</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-red">4</div>
+      <div><div class="num-text">تأثير سلوك الطفل مع أصدقائه، حين بعض الألعاب التي قد تبعث على العنف والأذى والعدوانية</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-red">5</div>
+      <div><div class="num-text">تؤدي بعض الألعاب غير المناسبة إلى تعليم الطفل الخصال السيئة، مثل الكذب والغش والاحتيال</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-red">6</div>
+      <div><div class="num-text">يُسبب الإكثار من اللعب بالأجهزة الإلكترونية إلى ضعف التركيز والانتباه عند الطفل، ومشاكل النوم والتوتر</div></div>
+    </div>
+    <div style="margin-top:16px" class="section-title">اللعب وذوو الفئات الخاصة</div>
+    <div class="simple-box">
+      <div class="simple-label">اللعب ليس مجرد تسلية — بل أداة تعليمية هامة</div>
+      <div class="simple-text">اللعب ليس مجرد نشاط تسلية للأطفال بل هو أداة تعليمية هامة، خاصة للأطفال ذوي الفئات الخاصة. من خلال اللعب، يمكن للأطفال اكتساب مهارات حيوية تتعلق بالتفاعل الاجتماعي والحركة والإدراك.</div>
+    </div>
+    <div class="simple-box teal-box">
+      <div class="simple-label">الألعاب أكثر من مجرد وسيلة للترفيه</div>
+      <div class="simple-text">الألعاب هي أكثر من مجرد وسيلة للترفيه للأطفال، فهي أدوات تعليمية قيّمة تساعدهم على النمو والتطور. بالنسبة للأطفال ذوي الفئات الخاصة، فإن اختيار الألعاب المناسبة يصبح أكثر أهمية، حيث تساعد هذه الألعاب في تطوير مهاراتهم الخاصة وتساعدهم على تحقيق أقصى إمكاناتهم.</div>
+    </div>
+    <div class="simple-box coral-box">
+      <div class="simple-label">الخلاصة</div>
+      <div class="simple-text">أيضاً، ألعاب ذوي الفئات الخاصة هي أدوات قيّمة لمساعدة الأطفال على تحقيق أقصى إمكاناتهم. من خلال اختيار الألعاب المناسبة وتوجيه بيئة داعمة، يمكننا مساعدة هؤلاء الأطفال على النمو والتطور بشكل إيجابياً.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 13-14 ====== -->
+<div id="p13p14" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 13-14 — أهداف اللعب + أهميته + ملخص الأهمية</div>
+    <div class="section-title">أهداف اللعب للأطفال ذوي الفئات الخاصة</div>
+    <div class="num-item">
+      <div class="num num-purple">1</div>
+      <div><div class="num-text">تعزيز الثقة بالنفس</div><div class="num-sub">عندما ينجح الطفل في إتقان لعبة أو تقدم معين، فإنه يشعر بالإنجاز والقدرة على التفاعل مع العالم من حوله، مما يعزز ثقته بنفسه</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">2</div>
+      <div><div class="num-text">تنمية المهارات الاجتماعية والتفاعلية</div><div class="num-sub">من خلال اللعب الجماعي، يمكن للأطفال تعلم كيفية التعاون والانتظار والتفاعل مع الآخرين بطريقة صحية ومثمرة</div></div>
+    </div>
+    <div style="margin-top:16px" class="section-title">أهمية اللعب لذوي الفئات الخاصة</div>
+    <div class="simple-box">
+      <div class="simple-label">الأهمية الأولى — تعلم المهارات بالمثل</div>
+      <div class="simple-text">يتعلم الأطفال الكثير من الأشياء أيضاً، ولا يختلف ذلك عما هو التزام للأطفال ذوي الفئات الخاصة. إذا كان اللعب أن يخلق من تأثير الإعاقة أو الصعوبة التي يعاني من الأطفال ذوي الفئات الخاصة، فعلى سبيل المثال في حالة الطفل من ضعف في حاسة السمع أو النظر فيُسيّله اللعب على تقوية حواسه الأخرى، الأمر الذي سيُسيّله أيضاً على التنالز واستكشاف البيئة المريحة بوتيرة أكبر. أما في التوجه الطفل الذي يعاني من صعوبات في الحركة فيُسيّله اللعب في تقوية عضلاته وتحسين أداءه.</div>
+    </div>
+    <div class="simple-box teal-box">
+      <div class="simple-label">الأهمية الثانية — التطور الاجتماعي والعاطفي</div>
+      <div class="simple-text">التطور الاجتماعي والعاطفي يُمثل أهمية تعبر الأطفال من ذوي الفئات الخاصة مع غيرهم من الأطفال في تطوير قدراتهم على تعلم المشاركة والتعاون مع الآخرين، والتعبر على مشاعرهم، وتكوين صداقات مع باقي الأطفال. كما سيُفيدهم الطفل من ذوي الفئات الخاصة أنه من الممكن أن يحصل على الدعم والمساعدة من الأطفال الآخرين.</div>
+    </div>
+    <div class="simple-box coral-box">
+      <div class="simple-label">الأهمية الثالثة — بناء مهارات التواصل والتواصل</div>
+      <div class="simple-text">يُساعد تفاعل الطفل من ذوي الفئات الخاصة مع الأطفال الآخرين أثناء وقت اللعب على تعريفه على طرق جديدة للتواصل والاستماع والتحدث، إذا استطاع الطفل من جسمه يسمعه كيفية استخدام الأطفال الآخرين للكلمات من أجل التعبير عما يريدون، ويمكن لديه أن يبدأ يبدأ باستخدام الكلمات أيضاً للتعبير عما يريد. وفي حالة شعور الطفل من ذوي الاحتياجات الخاصة تُحسّن قدرته على التواصل مع الآخرين فسيمتلك جرأة أكبر للتعامل مع الآخرين والتفاعل معهم.</div>
+    </div>
+    <div style="margin-top:16px" class="section-title">ويمكن اختصار أهمية اللعب لذوي الفئات الخاصة في</div>
+    <div class="num-item">
+      <div class="num num-purple">1</div>
+      <div><div class="num-text">التنمية الشاملة</div><div class="num-sub">تُساعد هذه الألعاب على تطوير جميع جوانب نمو الطفل، وبما في ذلك المهارات الحركية والحسية واللغوية والمعرفية</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">2</div>
+      <div><div class="num-text">زيادة الثقة بالنفس</div><div class="num-sub">عندما يتمكن الطفل ذوو الفئات الخاصة من تحقيق النجاح في اللعب، يزداد ثقته بنفسه وقدراته</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">3</div>
+      <div><div class="num-text">التكامل الاجتماعي</div><div class="num-sub">تُشجع الألعاب على التفاعل الاجتماعي وتساعد الأطفال على بناء علاقات مع أقرانهم</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-blue">4</div>
+      <div><div class="num-text">التعلم بطريقة ممتعة</div><div class="num-sub">تجعل الألعاب عملية التعلم ممتعة ومثيرة، مما يُساعد الأطفال على الاستمراه بالتعلم</div></div>
+    </div>
+    <div style="margin-top:16px" class="section-title">فوائد اللعب للأطفال ذوي الفئات الخاصة</div>
+    <div class="num-item">
+      <div class="num num-purple">1</div>
+      <div><div class="num-text">حسن التنسيق والمهارات الحركية لدى الطفل</div><div class="num-sub">اللعب في الخارج يُحسّن من مسيرة عضلاته وقوته وتوازنه وتنسيقه</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">2</div>
+      <div><div class="num-text">بناء الاحترام الذاتي ويُحسّن السلوك</div><div class="num-sub">عندما يتغلب الطفل على العقبات، تُرتفع لديه مشاعر الثقة بالنفس والاحترام الذاتي، تُرتفع أشعار الثقة بالنفس، ويشعر بالرضا والإنجاز الشخصي، مما يرنا قارته في الكفاءة الأخرى</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">3</div>
+      <div><div class="num-text">يُعالج ويُحسّن الصعوبات الخاصة التي يعاني منها الطفل</div><div class="num-sub">مثال: إذا كان الطفل يعاني من ضعف السمع أو ضعف البصر، يمكن أن يُساعد اللعب في تقوية حواسه الأخرى لتُساعده على التنالز واستكشاف العالم</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PAGE 15 ====== -->
+<div id="p15" class="sec">
+  <div class="page-card">
+    <div class="page-badge">صفحة 15 — فوائد اللعب (تكملة) + التحديات</div>
+    <div class="section-title">تكملة فوائد اللعب لذوي الفئات الخاصة</div>
+    <div class="num-item">
+      <div class="num num-blue">4</div>
+      <div><div class="num-text">يُحسّن المهارات الاجتماعية لدى الطفل</div><div class="num-sub">يوجد فرصاً للمشاركة والتعامل مع الآخرين — خصوصاً لدى الأطفال الذين يعانون من طيف التوحد، حيث يمكن تشجيعهم على اللعب الجماعي والتفاعل والانضمام إلى الأنشطة التي تنمو بها الاجتماعية</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-amber">5</div>
+      <div><div class="num-text">يُحسّن من صحة الطفل، ويزيد من مناعته، ويزيد من مستوى "فيتامين د"</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-purple">6</div>
+      <div><div class="num-text">يزيد من قدرة الطفل على الانتباه، ويُحسّن لديه مهارة حل المشكلات، وينمي الخيال</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-teal">7</div>
+      <div><div class="num-text">يخلص من الشعور بالتوتر، ويجعلهم أقل عرضة للإصابة بالاكتئاب والقلق</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-coral">8</div>
+      <div><div class="num-text">يُخلّص أعراض ضغوط النمو، ويعطي الطفل القدرة على التعبير عن نفسه وتلبية طاقاته، مع ضرورة وجود بعض التوجيهات الخاصة من القالبين التي يمكن أن تساعده على بناء علاقات مع الأطفال الآخرين</div></div>
+    </div>
+    <div class="num-item">
+      <div class="num num-blue">9</div>
+      <div><div class="num-text">تعزيز القوى التكاملية لدى الطفل بطريقة ممتعة وضمن بيئة آمنة، مما يعزز الروابط الموجودة في الدماغ، والتي تعتبر مهمة لجميع أنواع التعلم</div></div>
+    </div>
+    <div style="margin-top:16px" class="section-title">التحديات التي قد تواجه الأطفال أثناء اللعب وكيفية التغلب عليها</div>
+    <div class="simple-box coral-box">
+      <div class="simple-label">التحدي الأول — صعوبات حركية أو حسية</div>
+      <div class="simple-text">بعض الأطفال قد يواجهون صعوبة في المشاركة في الألعاب بسبب ضغوط حركية أو حسية. من المهم اختيار الألعاب بما يتناسب مع قدرات الطفل واحتياجاته، واستخدام الألعاب التكيفية التي تراعي هذه التحديات.</div>
+    </div>
+    <div class="simple-box teal-box">
+      <div class="simple-label">التحدي الثاني — صعوبة تكوين صداقات</div>
+      <div class="simple-text">اللعب الجماعي يمكن أن يكون وسيلة فعّالة للأطفال لتكوين صداقات. التفاعل من خلال الألعاب يساعدهم على تعلم القيم الاجتماعية مثل التعاون والمشاركة.</div>
+    </div>
+    <div class="simple-box amber-box">
+      <div class="simple-label">التحدي الثالث — الاعتماد على الذات</div>
+      <div class="simple-text">من خلال النجاح في حل التحديات أو القيام بأنشطة بمفردهم، يتعلم الأطفال الاعتماد على أنفسهم وتقوية استراتيجياتهم الذاتية.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SUMMARY ====== -->
+<div id="summary" class="sec">
+  <div class="page-card">
+    <div class="page-badge">الخلاصة الذهبية — أهم ما في الفصل الأول</div>
+    <div class="section-title">أهم 7 نقاط جوهرية لا يخرج عنها أي امتحان</div>
+    <div class="summary-item">
+      <div class="s-num">1</div>
+      <div class="s-text">اللعب غريزة إنسانية موجودة من لحظة الولادة وتدوم طوال العمر، وهو ضرورة وليس ترفاهاً.</div>
+    </div>
+    <div class="summary-item">
+      <div class="s-num">2</div>
+      <div class="s-text">الفرق بين اللعب واللُّعبة: اللعب حر مرن — أما اللُّعبة فهي اللعب المنظم بقواعد محددة وملزمة وزمان ومكان محدد.</div>
+    </div>
+    <div class="summary-item">
+      <div class="s-num">3</div>
+      <div class="s-text">للعب 18 وظيفة تشمل الجانب العقلي والجسمي والانفعالي والاجتماعي — الوظيفة 15 "اللعب نشاط سلوكي دفاعي" مهمة جداً.</div>
+    </div>
+    <div class="summary-item">
+      <div class="s-num">4</div>
+      <div class="s-text">الإسلام أكد حق الطفل في اللعب، والنبي ﷺ كان مثالاً عملياً على احترام هذا الحق.</div>
+    </div>
+    <div class="summary-item">
+      <div class="s-num">5</div>
+      <div class="s-text">حرمان الطفل من اللعب له 8 مخاطر: تأخر جسمي، سمنة، ضعف عقلي، مشاكل اجتماعية، مشاكل تعليمية، مشاكل سلوكية، اضطرابات نفسية، والحرمان البيئي.</div>
+    </div>
+    <div class="summary-item">
+      <div class="s-num">6</div>
+      <div class="s-text">لذوي الفئات الخاصة: اللعب أداة علاجية وتنموية بالغة الأهمية — أكثر أهمية من اللعب للأطفال العاديين.</div>
+    </div>
+    <div class="summary-item">
+      <div class="s-num">7</div>
+      <div class="s-text">الحرمان البيئي = حرمان الطفل من الخبرات الحياتية المناسبة لكل مرحلة عمرية — وهذه الخبرات لا تُعوَّض.</div>
+    </div>
+    <div style="margin-top:16px;background:#EEEDFE;border-radius:var(--border-radius-md);padding:14px 16px">
+      <div style="font-size:13px;font-weight:500;color:#3C3489;margin-bottom:8px">الكلمات الأكاديمية المهمة في هذا الفصل</div>
+      <div>
+        <span class="tag tag-p">الغريزة الإنسانية</span>
+        <span class="tag tag-t">نشاط سلوكي دفاعي</span>
+        <span class="tag tag-c">احتياجات تكاملية</span>
+        <span class="tag tag-b">التوافق الاجتماعي</span>
+        <span class="tag tag-a">الحرمان البيئي</span>
+        <span class="tag tag-g">الألعاب التكيفية</span>
+        <span class="tag tag-p">التعلم الاستكشافي</span>
+        <span class="tag tag-t">التنمية الشاملة</span>
+        <span class="tag tag-r">الاضطرابات النفسية</span>
+        <span class="tag tag-b">التكامل الاجتماعي</span>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <button onclick="sendPrompt('عايزة أجاوب على سؤال التحدي الخاص بالفصل الأول!')" style="width:100%;padding:10px;font-size:13px;font-weight:500;cursor:pointer;border-radius:var(--border-radius-md);background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary)">عايزة أتحدى نفسي وأحل سؤال الامتحان ↗</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function show(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.pnav').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
